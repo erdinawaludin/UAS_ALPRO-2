@@ -1,0 +1,97 @@
+program nilai;
+uses crt;
+const
+     jml_mahasiswa = 10;
+type
+    tsis = record
+         nm      : string;
+         jur     : char;
+         kelas   : string;
+         uts     : real;
+         uas     : real;
+         uprak   : real;
+         hasil  : real;
+    end;
+tarr_mah = array [1..jml_mahasiswa] of tsis;
+
+function menu:char;
+ begin
+    writeln('*****************');
+    writeln('* 1.Input  Data *');
+    writeln('* 2.Output Data *');
+    writeln('*****************');
+    writeln('* 0.Keluar      *');
+    writeln('*****************');
+    write('Pilih menu : '); menu :=
+    readkey;
+  end;
+
+procedure input_data(idx:integer;var data:tarr_mah);
+begin
+     write('Nama Mahasiswa     : ');readln(data[idx].nm);
+     write('jurusan TI / IF    : ');readln(data[idx].jur);
+     write('Kelas              : ');readln(data[idx].kelas);
+     write('Nilai UTS     : ');readln(data[idx].uts);
+     write('Nilai UAS     : ');readln(data[idx].uas);
+     write('Nilai UPRAK   : ');readln(data[idx].uprak);
+     data.hasil := data[idx].uts + data[idx].uas + data[idx].uprak / 3;
+end;
+
+procedure proses_data(var data:tarr_mah);
+begin
+
+end;
+
+procedure output_data(jml:integer;data:tarr_mah);
+var
+   i:integer;
+begin
+   if jml=0 then
+   begin
+   writeln('Tidak Ada Data  !');
+   end
+   else
+       for i:=1 to jml do
+       begin
+            writeln('Nama Mahasiswa       :  ',data[i].nm);
+            writeln('Jurusan  TI  / IF    :  ',data[i].jur);
+            writeln('Kelas                :  ',data[i].kelas);
+            writeln('Nilai  UTS           :  ',data[i].uts:10:2);
+            writeln('Nilai  UAS           :  ',data[i].uas:10:2);
+            writeln('Nilai  UPRAK         :  ',data[i].uprak:10:2);
+            writeln('Nilai  Akhir         :  ',data[i].hasil:10:2);
+       writeln;
+       end;
+
+end;
+
+var
+   no_menu,terus:char;
+   jml_mah:integer;
+   data_mah : tarr_mah;
+begin
+     jml_mah:=0;
+     repeat
+     clrscr;
+     no_menu:=menu;
+     case no_menu of
+     '1' : begin
+         clrscr;
+         repeat
+               input_data(jml_mah+1,data_mah);
+               proses_data(data_mah[jml_mah+1]);
+               jml_mah:=jml_mah+1;
+               writeln;
+               write('Input Data Lagi (y/n) : ');terus:=readkey;
+               writeln;
+         until(terus='n');
+         end;
+
+      '2' : begin
+                 clrscr;
+                 output_data(jml_mah,data_mah);
+                 readln;
+            end;
+     end;
+until(no_menu='0');
+end.
