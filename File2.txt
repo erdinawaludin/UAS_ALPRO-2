@@ -1,0 +1,93 @@
+uses crt;
+var
+      pil    :char;
+      data   :text;
+      nama,nim,jur,isi  :string;
+      uts,uas,uprak,hasil:real;
+      a      :byte;
+procedure menu1;
+begin
+      assign(data,'C:\Users\TGB10\Documents\New folder\06082018\003\Untitled3.pas');
+      rewrite(data);
+      clrscr;
+      writeln('>> Buat File');
+      writeln;
+      readkey;
+      close(data);
+end;
+procedure menu2;
+begin
+      assign(data,'C:\Users\TGB10\Documents\New folder\06082018\003\Untitled3.pas');
+      append(data);
+      clrscr;
+      writeln('>> Input Data');
+      writeln;
+      write  ('Nama         : ');readln(nama);writeln(data,nama);
+      write  ('NIM          : ');readln(nim); writeln(data,nim);
+      write  ('Jurusan      : ');readln(jur); writeln(data,jur);
+      write  ('Nilai UTS    : ');readln(uts); writeln(data,uts);
+      write  ('Nilai UAS    : ');readln(uas); writeln(data,uas);
+      write  ('Nilai UPRAK  : ');readln(uprak); writeln(data,uprak);
+      hasil:=(uts+uprak+uas)/3;
+      writeln('Nilai Akhir  : ',hasil);
+      close(data);
+end;
+
+procedure menu3;
+begin
+      assign(data,'C:\Users\TGB10\Documents\New folder\06082018\003\Untitled3.pas');
+      reset(data);
+      clrscr;
+      writeln('>> Lihat Data ');
+      writeln;
+      a:=1;
+      while not eof(data) do
+      begin
+            readln(data,isi);
+            if a mod 10=1 then
+            writeln('Nama : ',isi) else
+            begin
+                  writeln('NIM      : ',isi);
+                  writeln('Jurusan  : ',isi);
+                  writeln('Nilai UTS : ',isi);
+                  writeln('Nilai UAS : ',isi);
+                  writeln('Nilai Uprak : ',isi);
+                  writeln('Nilai Akhir : ',isi);
+                 writeln;
+            end;
+           inc(a);
+      end;
+      close(data);
+      readkey;
+end;
+procedure menu4;
+begin
+      assign(data,'C:\Users\TGB10\Documents\New folder\06082018\003\Untitled3.pas');
+      erase(data);
+      clrscr;
+      writeln('>> Hapus File');
+      writeln;
+      writeln('File berhasil dihapus');
+      readkey;
+end;
+
+begin
+      repeat
+      clrscr;
+      writeln('Menu UTAMA');
+      writeln;
+      writeln('1. Buat File');
+      writeln('2. Input Data');
+      writeln('3. Lihat Data');
+      writeln('4. Hapus File');
+      writeln('0. Keluar');
+      writeln;
+      write  ('Pilihan : ');pil:=readkey;
+      case pil of
+          '1':menu1;
+          '2':menu2;
+          '3':menu3;
+          '4':menu4;
+      end;
+      until pil='0';
+end.
